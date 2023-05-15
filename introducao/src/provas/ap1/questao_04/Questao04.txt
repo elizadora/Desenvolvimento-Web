@@ -1,0 +1,6 @@
+Explique como o uso de Contextos pode resolver o problema de PROPS DRILLING. Use
+um exemplo em (pode codificar ou simplesmente desenhar e explicar. Não precisa
+executar)
+
+
+Os Contextos servem como forma de passar os dados sem ser necessária a passagem de componente para componente até chegar no componente que necessita dos dados. O Contexto envolve os componentes tornando os dados disponíveis globalmente para todos os componentes envolvidos.

@@ -1,0 +1,53 @@
+
+.teste{
+    background-image: url('../../../assets/fundo.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px 80px 10px;
+    
+}
+
+
+.buttons button{
+    border-radius: 80%;
+    width: 150px;
+    height: 60px;
+    cursor: pointer; 
+    border: none;
+    color: black;
+    letter-spacing: 4px;
+}
+
+
+.buttons .button-next{
+     background-color: #D1F470;
+     
+}
+
+
+.buttons .button-back{
+    background-color: #F49370;
+    
+}
+
+.buttons .button-next:hover{
+    opacity: 0.7;
+}
+
+.buttons .button-back:hover{
+    opacity: 0.7;
+}
+
+
+.pokemons{
+    display: flex;
+}
