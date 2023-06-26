@@ -1,0 +1,14 @@
+var mongoose = require('mongoose')
+
+
+var AlunoSchema = new mongoose.Schema(
+    {
+        nome: {type: String, required: true},
+        ira: {type: Number, required: true}
+    }
+)
+
+
+var AlunoModel = mongoose.model('alunos', AlunoSchema)
+
+module.exports = AlunoModel
