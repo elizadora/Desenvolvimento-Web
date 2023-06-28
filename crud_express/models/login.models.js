@@ -1,3 +1,5 @@
+// model de login
+
 class LoginModel{
     constructor(login, senha){
         this.login = login

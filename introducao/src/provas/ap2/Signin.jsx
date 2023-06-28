@@ -2,10 +2,13 @@ import { Box, Typography, TextField, Container, Button, Link } from "@mui/materi
 import { useState } from "react"
 import axios from "axios"
 
-const Signin = () => {
+import { useNavigate } from "react-router-dom"
+
+const Signin = (props) => {
     const [login, setLogin] = useState("")
     const [senha, setSenha] = useState("")
 
+    let navigate = useNavigate()
 
     function handleSubmit(event){
         event.preventDefault()
@@ -17,8 +20,12 @@ const Signin = () => {
 
         axios.post("http://localhost:3001/login", user)
         .then((response) => {
-            if(response.data.res){
+            // pega a resposta do servidor e verifica se o login foi realizado com sucesso
+            // se sim, seta o estado logado para true e redireciona para a página de listagem de alunos
+            if(response.data){
                 alert("Login realizado com sucesso")
+                props.setLogado(true)
+                navigate("/listarAluno")
                 
             }else{
                 alert("Login ou senha incorretos")

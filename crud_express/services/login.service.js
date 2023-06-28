@@ -1,8 +1,9 @@
 const LoginModel = require('../models/login.models');
 
+// service de login para validar o login e senha
 class LoginService{
-    static validate(login, senha){
-        if(login == 'admin' && senha == 'admin'){
+    static validate(data){
+        if(data.login === 'admin' && data.senha === 'admin'){
             return true
         }
         return false
