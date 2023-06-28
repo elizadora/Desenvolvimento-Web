@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, Button } from "@mui/material"
+import { Typography, Box, TextField, Button, FormControl, MenuItem, InputLabel, Select } from "@mui/material"
 
 import axios from "axios"
 import { useState, useEffect } from "react"
@@ -16,6 +16,7 @@ const Editar = () => {
     
     let navigate = useNavigate()
 
+    // função que será executada quando o usuário clicar no botão Editar
     useEffect(
         () =>{
             axios.get(`http://localhost:3001/alunos/recuperar/${id}`)
@@ -43,6 +44,7 @@ const Editar = () => {
             ira
         }
 
+        // envia os dados para o backend
         axios.put(`http://localhost:3001/alunos/atualizar/${id}`, aluno)
         .then(
             (response) =>{
@@ -75,20 +77,23 @@ const Editar = () => {
 
                     onChange={(event) => setNome(event.target.value)}
                 />
-                <TextField 
-                    required
-                    fullWidth
-                    margin="normal"
-                    autoFocus   
-                    label = "Curso"
+                <FormControl fullWidth required sx={{mt: 2}}>
+                    <InputLabel id="curso-select">Curso</InputLabel>
+                    <Select
+                    labelId="curso-select"
+                    label="Curso"
 
-                    value = {curso}
-
-                    id = "curso"
-                    name = "curso"
-
+                    value={curso}
                     onChange={(event) => setCurso(event.target.value)}
-                />
+                    >
+                        <MenuItem value="EC">EC</MenuItem>
+                        <MenuItem value="CC">CC</MenuItem>
+                        <MenuItem value="ES">ES</MenuItem>
+                        <MenuItem value="SI">SI</MenuItem>
+                        <MenuItem value="DD">DD</MenuItem>
+                        <MenuItem value="RC">RC</MenuItem>
+                    </Select>
+                </FormControl>
                 <TextField 
                     required
                     fullWidth

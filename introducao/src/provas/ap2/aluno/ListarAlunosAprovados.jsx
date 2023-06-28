@@ -13,24 +13,43 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 
 
-const Listar = () => {
+const ListarAlunosAprovados = () => {
     const [alunos, setAlunos] = useState([])
     let media = 0.0
-
-    // calcula a média dos IRAs
-    for(let i = 0; i < alunos.length; i++){
-        media += alunos[i].ira
-    }
-
-    media = media / alunos.length
 
     useEffect(
         () => {
             axios.get("http://localhost:3001/alunos/listar")
             .then(
                 (response) => {
-                    setAlunos(response.data)
+                    let alunos = response.data
+
+                    // calcula a média dos IRAs
+                    for(let i = 0; i < alunos.length; i++){
+                        media += alunos[i].ira
+                        console.log(alunos[i].ira)
+                    }
+
+                    // calcula a média dos IRAs
+                    media = media / alunos.length
+
+                    let alunosAprovados = []
+
+                    // popula o array alunosAprovados com os alunos que possuem IRA maior ou igual a média
+                    for(let i = 0; i < alunos.length; i++){
+                        console.log(alunos[i].ira)
+                        if(alunos[i].ira >= media){
+                            console.log(alunos[i])
+                            alunosAprovados.push(alunos[i])
+                        }
+                    }
+
+                    // seta o estado alunos com os alunos aprovados
+                    setAlunos(alunosAprovados)  
+
                 }
+
+
             )
             .catch(error => console.log(error))
         }
@@ -65,7 +84,7 @@ const Listar = () => {
 
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
-          backgroundColor: theme.palette.action.hover
+          backgroundColor: theme.palette.action.hover,
         },
         // hide last border
         '&:last-child td, &:last-child th': {
@@ -77,7 +96,7 @@ const Listar = () => {
 
     return (
         <>
-            <Typography variant="h5" fontWeight="bold">Listar Aluno</Typography>
+            <Typography variant="h5" fontWeight="bold">Listar Aluno Aprovados</Typography>
 
             <TableContainer component={Paper} sx={{mt:4, mb:4}}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
@@ -96,17 +115,10 @@ const Listar = () => {
                                (
                                     alunos.map(
                                         (aluno) => {
-                                            // verifica se o aluno está aprovado ou não
-                                            let aprovado = false
-                                            if(aluno.ira >= media){
-                                                aprovado = true
-                                            }
                                             return (
-                                                <StyledTableRow 
-                                                key={aluno._id}>
+                                                <StyledTableRow key={aluno._id}>
                                                     <StyledTableCell align="center">{aluno._id}</StyledTableCell>
-                                                    {/* se o aluno estiver aprovado, a cor do nome será preta, caso contrário, será vermelha */} 
-                                                    <StyledTableCell align="center" sx={{color: aprovado ? "black" : "red"}}>{aluno.nome}</StyledTableCell>
+                                                    <StyledTableCell align="center">{aluno.nome}</StyledTableCell>
                                                     <StyledTableCell align="center">{aluno.curso}</StyledTableCell>
                                                     <StyledTableCell align="center">{aluno.ira}</StyledTableCell>
                                                     <StyledTableCell align="center">
@@ -138,25 +150,16 @@ const Listar = () => {
                             :
                             (
                                 <StyledTableRow>
-                                    <StyledTableCell colSpan={5} align="center">Nenhum aluno cadastrado</StyledTableCell>
+                                    <StyledTableCell colSpan={5} align="center">Nenhum aluno aprovado</StyledTableCell>
                                 </StyledTableRow>
                             )
 
                         }   
                     </TableBody>
-                    <TableFooter>
-                        <StyledTableRow>
-                        
-                            <StyledTableCell colSpan={3} align="center">Média Geral</StyledTableCell>
-                            {/* calcula a média dos IRAs */}
-                            <StyledTableCell align="center">{alunos.length > 0 ? media.toFixed(2) : 0}</StyledTableCell>
-                            <StyledTableCell align="center"></StyledTableCell>
-                        </StyledTableRow>
-                    </TableFooter>
                 </Table>
             </TableContainer>
         </>
     )
 }
 
-export default Listar
+export default ListarAlunosAprovados

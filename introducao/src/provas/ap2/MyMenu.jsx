@@ -115,6 +115,11 @@ const MyMenu = () => {
                             onClick={handleCloseAnchorElAluno}
                             component={Link} to="/listarAluno"
                             >Listar</MenuItem>
+
+                            <MenuItem
+                            onClick={handleCloseAnchorElAluno}
+                            component={Link} to="/listarAlunoAprovados"
+                            >Listar Alunos Aprovados</MenuItem>
                         </Menu>
 
                         <Button
